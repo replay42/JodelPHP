@@ -1,6 +1,6 @@
 # JodelPHP
 
-JodelPHP is a PHP Interface for Jodel (http://jodel-app.com) based on the idea of JodelPy // github.com/jafrewa/JodelPy/
+JodelPHP is a PHP Interface for Jodel (http://jodel-app.com) based on the idea of JodelPy
 
 ### Features
 
