@@ -23,9 +23,7 @@
 	}
 
 	for($i = 0; $i < $amount; $i++) {
-		$jodel = new Jodel;
-		$jodel->setUdid('');
-		$jodel->setPos(50.1183, 8.7011, 'Frankfurt am Main', 'DE');
+		$jodel = new Jodel('');
 		$jodel->upVote( $postid );
 
 		sleep(1);
