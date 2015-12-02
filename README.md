@@ -19,15 +19,13 @@ JodelPHP is a PHP Interface for Jodel (http://jodel-app.com) based on the idea o
 #### Setup
 ```php
 include('jodel.class.php');
+$position = array(50.1183, 8.7011, 'Frankfurt am Main', 'DE');
 
 // Create new Instance
-// Set Udid to '', random Udid is generated each time
-// Optionally set a fixed sha256 here.
-$jodel = new Jodel( $udid = '' );
-
-// Set Position.
-// setPos( $lat, $lng, $city, $country = 'DE')
-$jodel->setPos(50.1183, 8.7011, 'Frankfurt am Main', 'DE');
+// Set Udid to '', random Udid is generated each time. Optionally set a fixed sha256 here.
+// Set Position
+// Udid can be empty, position has to be set!
+$jodel = new Jodel( $udid = '', $pos = array($lat, $lng, $city, $country));
 ```
 
 #### Sample Calls for usage

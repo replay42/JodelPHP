@@ -22,10 +22,10 @@
                 private $accessToken, $country, $city, $lat, $lng;
 
 
-                function __construct( $udid = '' ) {
+                function __construct( $udid = '', $position = array(50.1183, 8.7011, 'Frankfurt am Main', 'DE')) {
                         // SetUp
-                        $this->udid = $udid;
-                        $jodel->setPos(50.1183, 8.7011, 'Frankfurt am Main', 'DE');
+                        $this->setUdid($udid);
+                        $this->setPos($position[0], $position[1], $position[2], $position[3]);
                         $this->getAccessToken();
                 }
 
