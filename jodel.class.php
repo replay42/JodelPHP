@@ -15,6 +15,7 @@
 		                   	  "Content-Type"          => "application/json; charset=UTF-8",
 		                   	  "User-Agent"            => "Jodel/65000 Dalvik/2.1.0 (Linux; U; Android 5.1.1; D6503 Build/23.4.A.1.232)"
 		                        );
+		
 
                 private $colors = array('06A3CB', 'DD5F5F', '8ABDB0', 'FF9908', 'FFBA00', '9EC41C');
                 private $udid = '';
@@ -33,7 +34,7 @@
                         $this->city = $city;
                         $this->lat = $lat;
                         $this->lng = $lng;
-                        $this->county = $country;
+                        $this->country = $country;
                 }
 
                 function setUdid( $udid = "" ) {
@@ -63,15 +64,15 @@
                 				"lat" => $this->lat,
                 				"lng" => $this->lng
                 			),
-                			"country" => "DE",
+                			"country" => $this->country,
                 		        "loc_accuracy" => 10.0
                 		)
                 	);
 
                 	$response = $this->doPost('/users/', json_encode($payload));
                 	
-                        $this->accessToken = $response->access_token;
-                        $this->header['Authorization'] = 'Bearer '.$this->accessToken;
+                    $this->accessToken = $response->access_token;
+                    $this->header['Authorization'] = 'Bearer '.$this->accessToken;
                 }
 
                
@@ -90,7 +91,7 @@
 
                 function post($text, $country = "DE") {
                         $payload = array(
-                                "color" => $this->getColor(),
+                                "color" => $this->colors[$this->getColor()],
                                 "location" => array(
                                         "loc_accuracy" => 10.0,
                                         "city" => $this->city,
@@ -110,7 +111,7 @@
                         $b64image = base64_encode(file_get_contents($pathToFile));
                         $payload = array(
                                 "image" => $b64image,
-                                "color" => $this->getColor(),
+                                "color" => $this->colors[$this->getColor()],
                                 "location" => array(
                                         "loc_accuracy" => 10.0,
                                         "city" => $this->city,
