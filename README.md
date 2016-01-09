@@ -67,3 +67,4 @@ $jodel->downVote( $postId );
 ### Note
   - You can only downvote posts if you've earned some karma already
   - The value of $city is shown to other jodel-users as entered here. So if you make a mistake, others will see that 
+  - The API only returns the 25 most recent posts and their comments. (I think 25...)
