@@ -130,7 +130,7 @@
                 function postComment($ancestor, $text, $country = "DE") {
                         $payload = array(
                                 "ancestor" => $ancestor,
-                                "color" => $this->getColor(),
+                                "color" => $this->colors[$this->getColor()],
                                 "location" => array(
                                         "loc_accuracy" => 10.0,
                                         "city" => $this->city,
@@ -155,10 +155,9 @@
                 }
 
                 function downVote( $postId ) {
-                        return $this->doPut("/posts/" . $postId . "/downvote/");
+                        return $this->doPut("/posts/".$postId."/downvote/");
                 }
-
-
+				
                 // Helper Functions
                 function doPost($url, $payload) {
                 	$response = Requests::post( $this->apiUrl.$url, $this->header, $payload );
