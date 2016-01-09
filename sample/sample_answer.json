@@ -5,7 +5,7 @@ stdClass Object
             [0] => stdClass Object
                 ([post_id] => 569108d395a70ec661c2c8fd
                     [created_at] => 2016-01-09T13:19:15.445Z
-                    [message] => Wo findet man in der uni jetzt noch was zu essen?
+                    [message] => This is my message.
                     [discovered_by] => 0
                     [updated_at] => 2016-01-09T13:20:37.243Z
                     [post_own] => friend
@@ -18,7 +18,7 @@ stdClass Object
                                 (
                                     [post_id] => 5691092595a70ec661c2c917
                                     [created_at] => 2016-01-09T13:20:37.217Z
-                                    [message] => Explizit?
+                                    [message] => What do you mean?
                                     [discovered_by] => 0
                                     [updated_at] => 2016-01-09T13:20:37.217Z
                                     [post_own] => friend
