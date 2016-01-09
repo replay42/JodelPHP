@@ -64,6 +64,6 @@ $jodel->downVote( $postId );
 - Thanks to rmccue for his "Requests" PHP Library https://github.com/rmccue/Requests/
 - Thanks a lot to jafrewa for his Python-Code. Visit him https://github.com/jafrewa/JodelPy/
 
-
-
-
+### Note
+  - You can only downvote posts if you've earned some karma already
+  - The value of $city is shown to other jodel-users as entered here. So if you make a mistake, others will see that 
