@@ -83,6 +83,9 @@ $jodel->upVote( $postId );
 $jodel->downVote( $postId );
 ```
 
+### Samples
+See "samples"-Folder for more practically samples. Samples are added frequently.
+
 ### Thanks to
 - Thanks to rmccue for his "Requests" PHP Library https://github.com/rmccue/Requests/
 - Thanks a lot to jafrewa for his Python-Code. Visit him https://github.com/jafrewa/JodelPy/
