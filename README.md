@@ -37,8 +37,11 @@ $jodel = new Jodel( $udid = '', $position);
 
 #### Sample Calls for usage
 ```php
-// Get Posts
+// Get Posts (1 - 30)
 $jodel->getPosts();
+
+// Get next posts starting from 30 (older posts)
+$jodel->getPosts( 30 );
 
 // Get loudest posts within 10km
 $jodel->getLoudestPosts();
