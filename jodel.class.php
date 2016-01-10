@@ -77,16 +77,36 @@
 
                
                 function getPosts() {
-                	return $this->doGet("/posts/");
+                    return $this->doGet("/posts/");
+                }
+
+                function getLoudestPosts() {
+                    return $this->doGet("/posts/location/popular/");
+                }
+
+                function getNewestPosts() {
+                    return $this->doGet("/posts/location/");
+                }
+
+                function getMostDiscussed() {
+                    return $this->doGet("/posts/location/discussed");
+                }
+
+                function getMyPosts() {
+                        return $this->doGet("/posts/mine/");
+                }
+
+                function getMyLoudestPosts() {
+                    return $this->doGet("/posts/mine/votes");
+                }
+
+                function getMyAnswers() {
+                    return $this->doGet("/posts/mine/replies");
                 }
 
                 function getKarma() {
                         $response = $this->doGet("/users/karma/");
                         return $response->karma;
-                }
-
-                function getMyPosts() {
-                        return $this->doGet("/posts/mine/");
                 }
 
                 function post($text, $country = "DE") {
