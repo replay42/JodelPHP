@@ -6,7 +6,12 @@ JodelPHP is a PHP Interface for Jodel (http://jodel-app.com) based on the idea o
 
   - Setting your Position
   - Get Posts
+  - Get Loudest Posts
+  - Get Newest Posts
+  - Get most discussed Posts
   - Get your own Posts
+  - Get your loudest Posts
+  - Get your answers
   - Get your current Karma
   - Post to Jodel
   - Comment to other Posts
