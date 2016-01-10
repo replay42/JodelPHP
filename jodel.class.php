@@ -19,6 +19,7 @@
 
                 private $colors = array('06A3CB', 'DD5F5F', '8ABDB0', 'FF9908', 'FFBA00', '9EC41C');
                 private $udid = '';
+                private $iSkip = 0;
 
                 private $accessToken, $country, $city, $lat, $lng;
 
@@ -75,13 +76,16 @@
                     $this->header['Authorization'] = 'Bearer '.$this->accessToken;
                 }
 
+                function skip( $int = 0 ) {
+                    if(is_int($int)) 
+                        $this->iSkip = $int;
+                    else
+                        $this->iSkip = 0;
+                }
+
                
                 function getPosts($skip = NULL) {
-                    if(is_int($skip))
-                        return $this->doGet("/posts/?skip=" . $skip);
-                    else
                         return $this->doGet("/posts/");
-
                 }
 
                 function getLoudestPosts() {
@@ -189,7 +193,8 @@
                 }
 
                 function doGet($url) {
-                	$response = Requests::get($this->apiUrl.$url, $this->header);
+                    if($this->iSkip > 0) $ext = '?skip='.$this->iSkip; else $ext = '';
+                	$response = Requests::get($this->apiUrl.$url.$ext, $this->header);
                         return json_decode($response->body);
                 }
 
