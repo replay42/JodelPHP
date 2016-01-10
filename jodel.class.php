@@ -76,8 +76,12 @@
                 }
 
                
-                function getPosts() {
-                    return $this->doGet("/posts/");
+                function getPosts($skip = NULL) {
+                    if(is_int($skip))
+                        return $this->doGet("/posts/?skip=" . $skip);
+                    else
+                        return $this->doGet("/posts/");
+
                 }
 
                 function getLoudestPosts() {
