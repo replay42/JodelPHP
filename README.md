@@ -35,11 +35,26 @@ $jodel = new Jodel( $udid = '', $position);
 // Get Posts
 $jodel->getPosts();
 
+// Get loudest posts within 10km
+$jodel->getLoudestPosts();
+
+// Get most discussed posts within 10km
+$jodel->getMostDiscussed();
+
+// Get newest posts
+$jodel->getNewestPosts();
+
 // Get your Posts
 $jodel->getMyPosts();
 
 // Get your Karma
 $jodel->getKarma();
+
+// Get your loudest posts
+$jodel->getMyLoudestPosts();
+
+// Get your answers
+$jodel->getMyAnswers();
 
 // Post to Jodel
 $jodel->post( $text );
