@@ -13,7 +13,6 @@
 		private $header = array(  "Connection"            => "keep-alive",
 		                   	  "Accept-Encoding"       => "gzip",
 		                   	  "Content-Type"          => "application/json; charset=UTF-8",
-		                   	  "User-Agent"            => "Jodel/65000 Dalvik/2.1.0 (Linux; U; Android 5.1.1; D6503 Build/23.4.A.1.232)"
 		                        );
 		
 
@@ -21,13 +20,17 @@
                 private $udid = '';
                 private $iSkip = 0;
 
-                private $accessToken, $country, $city, $lat, $lng;
+                private $accessToken, $country, $city, $lat, $lng, $versionString, $secret;
 
 
                 function __construct( $udid = '', $position = array(50.1183, 8.7011, 'Frankfurt am Main', 'DE')) {
                         // SetUp
                         $this->setUdid($udid);
                         $this->setPos($position[0], $position[1], $position[2], $position[3]);
+						require 'config.php';
+						$this->secret=$secret;
+						$this->versionString=$versionString;
+						$this->header['User-Agent']=$userAgentString;
                         $this->getAccessToken();
                 }
 
@@ -71,10 +74,39 @@
                 	);
 
                 	$response = $this->doPost('/users/', json_encode($payload));
-                	
+                	if(empty($response))
+						throw new Exception('Unable to get access token');
                     $this->accessToken = $response->access_token;
                     $this->header['Authorization'] = 'Bearer '.$this->accessToken;
                 }
+		//Copied from https://github.com/LauertBernd/JodelClientPHP/blob/master/src/JodelApi/Requests/AbstractRequest.php
+		public function getSignHeaders($url,$method,$payload='')
+		{
+			$headers = $this->header;
+			$timestamp = new DateTime();
+			$timestamp = $timestamp->format(DateTime::ATOM);
+			$timestamp = substr($timestamp, 0, -6);
+			$timestamp .= "Z";
+			$urlParts = parse_url($url);
+			$url2 = "";
+			$req = [$method,
+				$urlParts['host'],
+				"443",
+				$urlParts['path'],
+				"",
+				$timestamp,
+				$url2,
+				$payload];
+			$reqString = implode("%", $req);
+			$secret = $this->secret;
+			$signature = hash_hmac('sha1', $reqString, $secret);
+			$signature = strtoupper($signature);
+			$headers['X-Authorization'] = 'HMAC ' . $signature;
+			$headers['X-Client-Type'] = 'android_'.$this->versionString;
+			$headers['X-Timestamp'] = $timestamp;
+			$headers['X-Api-Version'] = '0.2';
+			return $headers;
+		}
 
                 function skip( $int = 0 ) {
                     if(is_int($int)) 
@@ -188,26 +220,29 @@
 				
                 // Helper Functions
                 function doPost($url, $payload) {
-                	$response = Requests::post( $this->apiUrl.$url, $this->header, $payload );
+                	$header = $this->getSignHeaders($this->apiUrl.$url,'POST',$payload );
+                	$response = Requests::post( $this->apiUrl.$url, $header, $payload );
                         return json_decode($response->body);
                 }
 
                 function doGet($url) {
                     if($this->iSkip > 0) $ext = '?skip='.$this->iSkip; else $ext = '';
-                	$response = Requests::get($this->apiUrl.$url.$ext, $this->header);
+                	$header = $this->getSignHeaders($this->apiUrl.$url,'GET' );
+                	$response = Requests::get($this->apiUrl.$url.$ext, $header);
                         return json_decode($response->body);
                 }
 
                 function doPut($url, $payload = "") {
-                        $response = Requests::put($this->apiUrl.$url, $this->header, $payload);
+                        $header = $this->getSignHeaders($this->apiUrl.$url,'PUT',$payload );
+                        $response = Requests::put($this->apiUrl.$url, $header, $payload);
                         return json_decode($response->body);
                 }
 
                 function doDelete($url) {
-                        $response = Requests::delete($this->apiUrl.$url, $this->header);
+                        $header = $this->getSignHeaders($this->apiUrl.$url,'DELETE' );
+                        $response = Requests::delete($this->apiUrl.$url, $header);
                         return json_decode($response->body);
                 }
-
 	}
 
 ?>
